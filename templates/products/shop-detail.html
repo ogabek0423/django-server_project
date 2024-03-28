@@ -88,7 +88,7 @@
                                 </a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
                                     {% if request.user.is_authenticated %}
-                                        <a href="{% url '404' %}" class="dropdown-item">My profile</a>
+                                        <a href="{% url 'profile' %}" class="dropdown-item">My profile</a>
                                         <a href="{% url 'logout' %}" class="dropdown-item">logout</a>
                                     {%else%}
                                         <a href="{% url 'login' %}" class="dropdown-item">login now</a>
@@ -155,6 +155,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <h4 class="fw-bold mb-3">{{product.name}}</h4>
+                                <p>Mahsulot id-si: {{product.id}}</p>
                                 <p class="mb-3">Category: {{product.category}}</p>
                                 <h5 class="fw-bold mb-3">{{product.price}} $</h5>
                                 <div class="d-flex mb-4">
@@ -284,22 +285,32 @@
                                 </div>
 
                             </div>
-                            <form action="#">
-                                <h4 class="mb-5 fw-bold">Leave a Reply</h4>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <h4 class="mb-5 fw-bold">Yoqqan bo'lsa izoh qoldiring!</h4>
                                 <div class="row g-4">
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
-                                            <input type="text" class="form-control border-0 me-4" placeholder="Yur Name *">
+                                            <label for="comment"></label>
+                                            <input type="text" name="comment" id="comment" class="form-control border-0" placeholder="Comment title:">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="border-bottom rounded">
-                                            <input type="email" class="form-control border-0" placeholder="Your Email *">
+                                            <label for="product_c"></label>
+                                            <input type="number" name="product_c" id="product_c" class="form-control border-0" placeholder="Comment for product_id:">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="border-bottom rounded">
+                                            <label for='u_id'></label>
+                                            <input type="number" name='u_id' id="u_id" class="form-control border-0" placeholder="sizning id raqamingiz:">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="border-bottom rounded my-4">
-                                            <textarea name="" id="" class="form-control border-0" cols="30" rows="8" placeholder="Your Review *" spellcheck="false"></textarea>
+                                            <label for="comment_text"></label>
+                                            <textarea name="comment_text" id="comment_text" class="form-control border-0" cols="30" rows="8" placeholder="Comment text:" spellcheck="false"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -314,7 +325,7 @@
                                                     <i class="fa fa-star"></i>
                                                 </div>
                                             </div>
-                                            <a href="#" class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post Comment</a>
+                                            <button class="btn border border-secondary text-primary rounded-pill px-4 py-3" type="submit">Post Comment</button>
                                         </div>
                                     </div>
                                 </div>
@@ -458,7 +469,7 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="d-flex flex-column text-start footer-item">
                             <h4 class="text-light mb-3">Account</h4>
-                            <a class="btn-link" href="">My Account</a>
+                            <a class="{%url 'profile'%}" href="">My Account</a>
                             <a class="btn-link" href="">Shop details</a>
                             <a class="btn-link" href="">Shopping Cart</a>
                             <a class="btn-link" href="">Wishlist</a>

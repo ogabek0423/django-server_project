@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
 from .forms import UserLoginForm, UserRegisterForm, UserProblemForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Problems, Comments
+from .models import Problems, Comments, UserProfile
 
 
 class Chackout(LoginRequiredMixin, View):
@@ -21,25 +21,25 @@ class ContactView(LoginRequiredMixin, View):
         return render(request, 'users/contact.html', context)
 
     def post(self, request):
-        form = UserProblemForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponse("<h1>Thank you for message</h1>")
+        first_name = request.POST['first_name']
+        email = request.POST['email']
+        problem = request.POST['problem']
+        problem_t = request.POST['problem_title']
 
-        else:
-            context = {'form': form}
-            return render(request, 'users/contact.html', context)
-
-
-
-
-
-
+        a = Problems.objects.create(problem_name=problem_t, problem_description=problem,
+                                    firstname=first_name, email=email)
+        a.save()
+        return redirect('thank')
 
 
 class TestimonialView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'users/testimonial.html')
+        # user = User.objects.filter(username__icontains=request.USER)
+        context = {'testimonial': Comments.objects.all(),
+                   # 'user': user
+        }
+
+        return render(request, 'users/testimonial.html', context)
 
 
 class UserLoginView(View):
@@ -93,6 +93,18 @@ class LogOutView(View):
         logout(request)
 
         return redirect('index')
+
+
+class MyProfileView(View):
+    def get(self, request):
+        user = User.objects.get(username=request.user.username)
+        userprofile = UserProfile.objects.get(user_id=user.id)
+        print(userprofile)
+        context = {
+            'user': user,
+            'userprofile': userprofile,
+        }
+        return render(request, 'users/my_profile.html', context)
 
 
 

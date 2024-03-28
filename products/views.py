@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Product, Category, Bestsellers, FeaturedItems
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from users.models import Comments
 
 
 class ShopView(LoginRequiredMixin, View):
@@ -60,6 +61,18 @@ class ShopDetailView(LoginRequiredMixin, View):
         }
 
         return render(request, 'products/shop-detail.html', context=context)
+
+    def post(self, request):
+        comment = request.POST['comment']
+        product = request.POST['product_c']
+        comment_text = request.POST['comment_text']
+        u_id = request.POST['u_id']
+        print(product)
+
+        a = Comments.objects.create(user_id=int(u_id), comment=comment_text, comment_title=comment)
+        a.save()
+
+        return redirect('thank')
 
 
 class CartView(LoginRequiredMixin, View):
