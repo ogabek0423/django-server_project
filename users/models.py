@@ -26,10 +26,10 @@ class Comments(models.Model):
 
 
 class Problems(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    firstname = models.CharField(max_length=30)
+    email = models.EmailField()
     problem_name = models.CharField(max_length=30)
     problem_description = models.TextField()
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.problem_name}'

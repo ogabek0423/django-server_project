@@ -1,6 +1,7 @@
 from .models import UserProfile
 from django import forms
 from django.contrib.auth.models import User
+from .models import Problems
 
 
 
@@ -23,3 +24,13 @@ class UserLoginForm(forms.Form):
         model = User
         fields = ['username', 'password']
 
+
+class UserProblemForm(forms.Form):
+    class Meta:
+        model = Problems
+        fields = ['first_name', 'email', 'problem_name', 'problem_description']
+
+    def save(self, commit=True):
+        a = Problems(firstname=self.cleaned_data['first_name'], email=self.cleaned_data['email'], problem_name=self.cleaned_data['problem_name'], problem_description=self.cleaned_data['problem_description'])
+        a.save()
+        return a
