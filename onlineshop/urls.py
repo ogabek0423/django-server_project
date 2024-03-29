@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('products.urls')),
     path('', IndexView.as_view(), name='index'),
     path('thank/', ThankYouView.as_view(), name='thank'),
+    path(r'mdeditor/', include('mdeditor.urls'))
 ]
 
 

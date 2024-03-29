@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth.models import User
+from mdeditor.fields import MDTextField
 
 
 from products.models import Product, Bestsellers, FeaturedItems
@@ -18,7 +19,7 @@ class UserProfile(models.Model):
 class Comments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment_title = models.CharField(max_length=200)
-    comment = models.TextField()
+    comment = MDTextField()
 
 
     def __str__(self):
@@ -29,7 +30,7 @@ class Problems(models.Model):
     firstname = models.CharField(max_length=30)
     email = models.EmailField()
     problem_name = models.CharField(max_length=30)
-    problem_description = models.TextField()
+    problem_description = MDTextField()
 
     def __str__(self):
         return f'{self.problem_name}'
