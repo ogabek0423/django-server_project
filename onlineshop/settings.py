@@ -17,7 +17,7 @@ LOGIN_URL = 'login'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["20.167.49.189"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
