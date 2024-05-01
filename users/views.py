@@ -98,12 +98,16 @@ class LogOutView(View):
 class MyProfileView(View):
     def get(self, request):
         user = User.objects.get(username=request.user.username)
-        userprofile = UserProfile.objects.get(user_id=user.id)
-        print(userprofile)
+        # try:
+        #     userprofile = UserProfile.objects.get(user_id=user.id)
+        # except userprofile.DoesNotExist:
+        #     context = {'user': user}
+        #     return render(request, 'users/my_profile.html', context)
+        # else:
+
         context = {
-            'user': user,
-            'userprofile': userprofile,
-        }
+                'user': user,
+            }
         return render(request, 'users/my_profile.html', context)
 
 
