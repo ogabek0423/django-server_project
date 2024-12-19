@@ -51,14 +51,7 @@ class ShopDetailView(LoginRequiredMixin, View):
                 return render(request, 'products/shop-detail.html', context)
 
 
-        products = Product.objects.all()
-
-        context = {
-            'products': products,
-            'freshs': featured_products,
-            'category': category,
-            'bestsellers': Bestsellers.objects.all(),
-        }
+        
 
         return render(request, 'products/shop-detail.html', context=context)
 
