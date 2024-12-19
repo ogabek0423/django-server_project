@@ -53,7 +53,7 @@ class ShopDetailView(LoginRequiredMixin, View):
 
         
 
-        return render(request, 'products/shop-detail.html', context=context)
+        # return render(request, 'products/shop-detail.html', context=context)
 
     def post(self, request):
         comment = request.POST['comment']
